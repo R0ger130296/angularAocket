@@ -1,0 +1,14 @@
+<div class="">
+    <div class="flex justify-center m-3 py-6">
+        <button (click)="addDoc()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        <span class="mr-2 uppercase">New Document</span>
+        <i class="fas fa-file-medical"></i>
+      </button>
+    </div>
+
+    <div class="flex flex-wrap">
+        <button (click)="getDoc(id)" *ngFor="let id of docs | async" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        <span class="block font-semibold text-xl">{{ id }}</span>
+      </button>
+    </div>
+</div>
