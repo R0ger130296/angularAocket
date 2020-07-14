@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { DataRx } from '../models/data-rx';
 import jwt_decode from 'jwt-decode';
+import { ConstantPool } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class PermissionsService {
 
   decodeToken(token: string): boolean {
     const decoded = jwt_decode(token);
+    console.log(decoded)
     if (decoded) {
       console.log(decoded)
       this.token = token || null;
