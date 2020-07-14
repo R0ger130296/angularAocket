@@ -1,28 +1,21 @@
-;
-'use strict'
-const mongoose = require('mongoose'),
-    {
-        USER_DB,
-        PASSWORD,
-        HOST_DB,
-        NAME_DB
-    } = process.env
-mongoUrl = `mongodb+srv://${USER_DB}:${PASSWORD}@${HOST_DB}/${NAME_DB}?retryWrites=true&w=majority`
-let connection
-let connectionDb = async() => {
-    if (connection) return connection
-    let cliente
-    try {
-        cliente = await mongoose.connect(`${mongoUrl}`, {
-            useUnifiedTopology: true,
-            useNewUrlParser: true
-        })
-        console.log(`Conectado :* ${NAME_DB}`)
-    } catch (e) {
-        console.log(e)
-        process.exit(1)
-    }
-    return connection
-}
+const mongoose = require("mongoose"),
+  { USER_DB, PASS_DB, HOST_DB, NAME_DB } = process.env;
 
-module.exports = connectionDb
+let connection,
+  connectDB = async () => {
+    if (connection) return connection;
+
+    try {
+      connection = await mongoose.connect(`mongodb://${HOST_DB}/${NAME_DB}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log("DB connected...");
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+    return connection;
+  };
+
+module.exports = connectDB;

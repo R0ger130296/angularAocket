@@ -1,0 +1,36 @@
+<section
+  class="flex items-center justify-center absolute w-full h-full bg-gray-900"
+>
+  <div class="px-4">
+    <form
+      [formGroup]="loginForm"
+      class="relative shadow-lg rounded-lg bg-gray-300 px-4 py-10 w-64"
+    >
+      <div class="w-full mb-3">
+        <label class="text-gray-700 text-xs font-bold mb-2">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="px-3 py-3 placeholder-gray-600 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+          placeholder="Email"
+        />
+      </div>
+      <div class="w-full mb-12">
+        <label class="text-gray-700 text-xs font-bold mb-2">Password</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="px-3 py-3 placeholder-gray-600 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+          placeholder="Password"
+        />
+      </div>
+      <button
+        (click)="login()"
+        class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+        style="transition: all 0.15s ease 0s;"
+      >
+        Sign In
+      </button>
+    </form>
+  </div>
+</section>
