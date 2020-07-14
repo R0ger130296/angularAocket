@@ -1,7 +1,9 @@
+;
+'use strict'
 const jwt = require("jsonwebtoken");
 
 //Middleware(next) nos permite dar paso al siguiente proceso.
-let authentitation = (req, res, next) => {
+let Autentication = (req, res, next) => {
     let token = req.headers.authorization || null;
 
     jwt.verify(token, req.sessionID, (err, decode) => {
@@ -15,7 +17,7 @@ let authentitation = (req, res, next) => {
 
             let token = jwt.sign({ data: decode.data }, req.sessionID, {
                 algorithm: "HS256",
-                expiresIn: 300,
+                expiresIn: 6000,
             });
 
             req.token = token;
@@ -25,6 +27,4 @@ let authentitation = (req, res, next) => {
     });
 };
 
-module.exports = {
-    authentitation,
-};
+module.exports = Autentication

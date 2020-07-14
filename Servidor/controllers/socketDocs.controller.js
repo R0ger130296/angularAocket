@@ -1,4 +1,6 @@
-let manageDocs = (http) => {
+;
+'use strict'
+let GestioDocumentos = (http) => {
     let io = require("socket.io")(http),
         socketJwt = require("socketio-jwt");
 
@@ -9,9 +11,9 @@ let manageDocs = (http) => {
         })
     );
 
-    const getData = {}; //lista de salas/documentos
+    const getData = {}; //lista de salas
 
-    io.on("connection", (socket) => {
+    io.on("connection", socket => {
         let previousId;
 
         const safeJoin = (currentId) => {
@@ -25,13 +27,13 @@ let manageDocs = (http) => {
             socket.emit("manageData", getData[id]);
         });
 
-        socket.on("addDoc", (doc) => {
-            let rooms = Object.keys(getData),
-                roomsNumber = rooms.length + 1,
-                roomName = `Doc
-                 ${roomsNumber}`;
+        socket.on("addDoc", doc => {
+            let salas = Object.keys(getData),
+                numeroSala = salas.length + 1,
+                salaNombre = `Doc
+                 ${numeroSala}`;
 
-            doc.id = roomName;
+            doc.id = salaNombre;
 
             getData[doc.id] = doc;
             safeJoin(doc.id);
@@ -49,4 +51,4 @@ let manageDocs = (http) => {
     });
 };
 
-module.exports = manageDocs;
+module.exports = GestioDocumentos;

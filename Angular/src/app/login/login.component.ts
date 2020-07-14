@@ -45,7 +45,7 @@ login():void{
     this.loginServices.logIn(datalogin).subscribe((data:DataRx)=>{
   if(data.ok){
     if(this.permisos.decodeToken(data.token)){
-      sessionStorage.setItem("token", this.permisos.getToken())
+      // sessionStorage.setItem("token", this.permisos.getToken())
       this.router.navigate(['/documentos/lista']);
     }else{
      email='';

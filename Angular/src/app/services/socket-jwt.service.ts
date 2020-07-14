@@ -4,12 +4,12 @@ import { PermissionsService } from './permissions.service';
 
 @Injectable()
 export class SocketJwtService extends Socket {
-  constructor(private permissions: PermissionsService) {
+  constructor(private permisos: PermissionsService) {
     // const token = sessionStorage.getItem('token');
     super({
       url: 'http://localhost:3500',
       options: {
-        query: `token=${sessionStorage.getItem("token")}&sessionID=${permissions.getSessionID()}`,
+        query: `token=${permisos.getToken()}&sessionID=${permisos.getSessionID()}`,
       },
     });
   }

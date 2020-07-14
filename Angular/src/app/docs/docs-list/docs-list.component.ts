@@ -33,9 +33,9 @@ export class DocsListComponent implements OnInit, OnDestroy {
   getDoc = async (id: string) => {
     this.docsService.getDoc(id);
 
-    let roomName = prompt('Nombre de la sala');
+    let salaNombre = prompt('Nombre de la sala');
 
-    if (this.docAuth.roomName === roomName) {
+    if (this.docAuth.salaNombre === salaNombre) {
       let roomPassword = prompt('Contraseña de la sala');
       if (this.docAuth.roomPassword === roomPassword) {
         this.docsService.getDoc(id);
@@ -49,14 +49,13 @@ export class DocsListComponent implements OnInit, OnDestroy {
   };
 
   addDoc() {
-    let roomName = prompt('Dele nombre al documento nuevo'),
+    let salaNombre = prompt('Dele nombre al documento nuevo'),
       roomPassword = prompt('debe darle una contraseña al documento');
 
     this.docsService.addDoc({
       id: '',
       doc: '',
-      userName: '',
-      roomName,
+      salaNombre,
       roomPassword,
     });
   }

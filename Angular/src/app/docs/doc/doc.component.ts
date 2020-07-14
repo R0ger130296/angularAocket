@@ -3,8 +3,6 @@ import { Subscription, Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { DocsService } from '../../services/docs.service';
 import { Docs } from '../../models/docs';
-import jwt_decode from 'jwt-decode';
-import { PermissionsService } from '../../services/permissions.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,13 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./doc.component.scss'],
 })
 export class DocComponent implements OnInit, OnDestroy {
-  currentUserName: Observable<string>;
   document: Docs;
   private _docSubscribe: Subscription;
 
   constructor(
     private docsService: DocsService,
-    private permissions: PermissionsService,
     private router: Router
   ) {}
 
@@ -29,12 +25,11 @@ export class DocComponent implements OnInit, OnDestroy {
         startWith({
           id: '',
           doc: 'Seleccione o cree un nuevo documento',
-          userName: '',
-          roomName: '',
+          salaNombre: '',
           roomPassword: '',
         })
       )
-      .subscribe((document) => (this.document = document));
+      .subscribe(document => (this.document = document));
   }
 
   ngOnDestroy() {
