@@ -28,7 +28,7 @@ export class DocComponent implements OnInit, OnDestroy {
       .pipe(
         startWith({
           id: '',
-          doc: 'Select or create a document',
+          doc: 'Seleccione o cree un nuevo documento',
           userName: '',
           roomName: '',
           roomPassword: '',
@@ -42,19 +42,8 @@ export class DocComponent implements OnInit, OnDestroy {
   }
 
   editDoc() {
-    this._getuser();
     this.docsService.editDoc(this.document);
   }
-
-  private _getuser() {
-    // let token = this.permissions.getToken();
-    // let decoded = jwt_decode(token);
-    
-    let decoded = jwt_decode(sessionStorage.getItem("token"));
-
-    this.document.userName = decoded.data.name;
-  }
-
   goDocsList() {
     this.router.navigate(['/docs/docs_list']);
   }

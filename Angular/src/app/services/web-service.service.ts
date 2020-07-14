@@ -25,14 +25,4 @@ export class WebServiceService {
     };
     return optionsHeaders;
   }
-
-  getHeaderFile(): object {
-    const optionsHeaders = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-        Authorization: this.permissions.getToken(),
-      }),
-    };
-    return optionsHeaders;
-  }
 }

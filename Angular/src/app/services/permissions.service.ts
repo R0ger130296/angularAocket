@@ -20,6 +20,7 @@ export class PermissionsService {
   decodeToken(token: string): boolean {
     const decoded = jwt_decode(token);
     if (decoded) {
+      console.log(decoded)
       this.token = token || null;
       this.userLogin = decoded.data || null;
       this.sessionID = this.userLogin.sessionID || null;

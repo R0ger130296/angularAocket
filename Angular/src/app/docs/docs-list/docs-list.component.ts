@@ -15,7 +15,6 @@ export class DocsListComponent implements OnInit, OnDestroy {
   private _docSubscribe: Subscription;
 
   constructor(private docsService: DocsService, private router: Router) {
-    window.location.reload()
   }
 
   ngOnInit(): void {
@@ -34,27 +33,24 @@ export class DocsListComponent implements OnInit, OnDestroy {
   getDoc = async (id: string) => {
     this.docsService.getDoc(id);
 
-    let roomName = prompt('Access name');
+    let roomName = prompt('Nombre de la sala');
 
     if (this.docAuth.roomName === roomName) {
-      let roomPassword = prompt('Room password');
+      let roomPassword = prompt('Contraseña de la sala');
       if (this.docAuth.roomPassword === roomPassword) {
         this.docsService.getDoc(id);
-        this.router.navigate(['/docs/doc']);
+        this.router.navigate(['/documentos/documento']);
       } else {
-        alert('Wrong password, try again');
+        alert('Error contraseña no válida');
       }
     } else {
-      alert('Wrong room name, try again');
-    //       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    //   this.router.navigate(['/docs/docs_list']);
-    // });
+      alert(`Error nombre de sala`);
     }
   };
 
   addDoc() {
-    let roomName = prompt('Pls, write a name for your document'),
-      roomPassword = prompt('Pls, write a password for your document');
+    let roomName = prompt('Dele nombre al documento nuevo'),
+      roomPassword = prompt('debe darle una contraseña al documento');
 
     this.docsService.addDoc({
       id: '',

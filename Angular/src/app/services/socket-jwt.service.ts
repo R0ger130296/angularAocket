@@ -9,7 +9,6 @@ export class SocketJwtService extends Socket {
     super({
       url: 'http://localhost:3500',
       options: {
-        // query: `token=${permissions.getToken()}&sessionID=${permissions.getSessionID()}`,
         query: `token=${sessionStorage.getItem("token")}&sessionID=${permissions.getSessionID()}`,
       },
     });

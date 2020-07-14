@@ -20,59 +20,56 @@ export interface DataLogin {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  dataLogin: DataLogin;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private loginService: LoginService,
-    private permissions: PermissionsService,
-    private router: Router
-  ) {}
+  loginData: FormGroup;
+  constructor(private router: Router,
+    private loginServices:LoginService,
+    private permisos: PermissionsService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this._loginForm();
-    this.dataLogin = {
-      data: {
-        email: this.loginForm.get('email').value,
-        password: this.loginForm.get('password').value,
-      },
-    };
+    this.loginData = this.formBuilder.group({
+      email:["admi@gmail.com",Validators.required],
+      password:["1",Validators.required],
+  }); 
   }
 
-  _loginForm = () => {
-    this.loginForm = this.formBuilder.group({
-      email: ['johao@gmail.com', [Validators.required]],
-      password: ['1234', [Validators.required]],
+login():void{
+  let email =this.loginData.get('email').value;
+  let password =this.loginData.get('password').value;
+  let datalogin = {
+    data:{
+      password,
+      email
+    }
+  };
+    this.loginServices.logIn(datalogin).subscribe((data:DataRx)=>{
+  if(data.ok){
+    if(this.permisos.decodeToken(data.token)){
+      sessionStorage.setItem("token", this.permisos.getToken())
+      this.router.navigate(['/documentos/lista']);
+    }else{
+     email='';
+      password='';
+      const Toast = Swal.fire({
+        position: 'top-right',
+        icon:'error',
+        title:`${data.msg}`,
+        showConfirmButton: false,
+        timer: 3000
+      });
+    }
+  } error=>{
+    email='';
+      password='';
+    const Toast = Swal.fire({
+      position: 'top-right',
+      icon:'error',
+      title:`${error}`,
+      showConfirmButton: false,
+      timer: 3000
     });
   };
-
-  login(): void {
-    this.loginService.logIn(this.dataLogin).subscribe(
-      (res: DataRx) => {
-        if (res.ok) {
-          if (this.permissions.decodeToken(res.token)) {
-            sessionStorage.setItem("token", this.permissions.getToken())
-            this.router.navigate(['/home']);
-            // console.log(this.permissions.getUserLogin());
-          }
-        } else {
-          this.dataLogin.data.email = '';
-          this.dataLogin.data.password = '';
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: res.msg,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      },
-      (error) => {
-        this.dataLogin.data.email = '';
-        this.dataLogin.data.password = '';
-        console.log(error);
-      }
-    );
-  }
+});
+}
+  
 }

@@ -6,8 +6,8 @@ import { DocComponent } from './doc/doc.component';
 
 const routes: Routes = [
   { path: '', component: DocsComponent },
-  { path: 'docs_list', component: DocsListComponent },
-  { path: 'doc', component: DocComponent },
+  { path: 'lista', component: DocsListComponent },
+  { path: 'documento', component: DocComponent },
 ];
 
 @NgModule({
